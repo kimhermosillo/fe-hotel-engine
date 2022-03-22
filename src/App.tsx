@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Navigate,
+} from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+import Search from './components/Search'
+import RepositoryDetails from './components/RepositoryDetails'
+
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+		},
+	},
+})
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<QueryClientProvider client={queryClient}>
+			<Router>
+				<Routes>
+					{/* Search */}
+					<Route path='/' element={Search} />
+
+					{/* Detail */}
+					<Route
+						path='/repositories/:owner/:repo'
+						element={RepositoryDetails}
+					/>
+
+					{/* Default Path */}
+					<Route path='/' element={<Navigate to='/' />} />
+				</Routes>
+			</Router>
+		</QueryClientProvider>
+	)
 }
 
-export default App;
+export default App
