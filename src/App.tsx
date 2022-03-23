@@ -1,10 +1,4 @@
-import React from 'react'
-import {
-	BrowserRouter as Router,
-	Routes,
-	Route,
-	Navigate,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 import Search from './components/Search'
@@ -22,18 +16,13 @@ function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Router>
+				<h1>Search Github</h1>
 				<Routes>
-					{/* Search */}
-					<Route path='/' element={Search} />
-
-					{/* Detail */}
+					<Route path='/' element={<Search />} />
 					<Route
 						path='/repositories/:owner/:repo'
-						element={RepositoryDetails}
+						element={<RepositoryDetails />}
 					/>
-
-					{/* Default Path */}
-					<Route path='/' element={<Navigate to='/' />} />
 				</Routes>
 			</Router>
 		</QueryClientProvider>

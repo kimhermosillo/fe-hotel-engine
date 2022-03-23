@@ -1,9 +1,13 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 import { getRepo } from '../api/searchAPI'
 
+import { Icon, Loader, Popup } from 'semantic-ui-react'
+
 import { Repository } from '../utils/Repository'
+
+import './RepositoryDetails.scss'
 
 const RepositoryDetail = () => {
 	const { owner: ownerParam, repo } = useParams()
@@ -13,7 +17,7 @@ const RepositoryDetail = () => {
 	)
 
 	if (isLoading) {
-		return <div>I'M LOADINNNNNG</div>
+		return <Loader active={isLoading} />
 	}
 
 	const {
@@ -30,22 +34,61 @@ const RepositoryDetail = () => {
 	const { avatar_url, login } = owner || {}
 
 	return (
-		<main>
+		<main className='repo'>
 			{error && <p>{error.message}</p>}
 			{data && (
-				<article>
+				<article className='ui padded segment'>
 					<header>
-						<div>
-							<h1>{name}</h1>
+						<div className='repo__title-container'>
+							<h1 className='repo__title'>{name}</h1>
+
+							<div className='repo__links'>
+								<Popup
+									content='Back to search'
+									trigger={
+										<Link to='/' aria-label='Back to search'>
+											<Icon name='arrow left' />
+										</Link>
+									}
+								/>
+								<Popup
+									content='View on Github'
+									trigger={
+										<a
+											href={html_url}
+											target='_blank'
+											rel='noreferrer'
+											aria-label='View on Github'
+										>
+											<Icon name='github' />
+										</a>
+									}
+								/>
+							</div>
 						</div>
 
-						<div>
-							<img width='50' height='50' src={avatar_url} alt={login} />
+						<div className='repo__owner'>
+							<img
+								className='ui avatar image'
+								width='50'
+								height='50'
+								src={avatar_url}
+								alt={login}
+							/>
 							<span>{login}</span>
 						</div>
 					</header>
 
-					<p>{description}</p>
+					<p className='headings'>Description:</p>
+					<p> {description}</p>
+					<p className='headings'>Stars: </p>
+					<p> {stargazers_count}</p>
+					<p className='headings'>Subscribers: </p>
+					<p>{subscribers_count}</p>
+					<p className='headings'>Forks: </p>
+					<p>{forks_count}</p>
+					<p className='headings'>Open issues: </p>
+					<p> {open_issues_count}</p>
 				</article>
 			)}
 		</main>

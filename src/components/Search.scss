@@ -1,0 +1,31 @@
+.ui.form .field:last-child,
+.ui.form .fields:last-child .field {
+	margin-bottom: 0.5em;
+	display: flex;
+	flex-direction: column;
+}
+.search {
+	&__results {
+		&-item {
+			margin-bottom: 1em;
+			margin-top: 12px;
+			.content {
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+
+				&__title-container {
+					display: flex;
+					max-width: 85%;
+					word-break: break-word;
+				}
+			}
+		}
+	}
+
+	&__pagination-container {
+		display: flex;
+		justify-content: center;
+		padding: 1em 0;
+	}
+}
