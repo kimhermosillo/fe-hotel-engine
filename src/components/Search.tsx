@@ -56,7 +56,7 @@ const Search = () => {
 		(_, data) => setPage(data.activePage),
 		[setPage]
 	)
-	console.log(language)
+
 	return (
 		<main className='search'>
 			<h3>Repositories</h3>
