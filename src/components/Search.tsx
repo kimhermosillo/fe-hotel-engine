@@ -1,7 +1,7 @@
 import { useState, useEffect, ChangeEvent, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Form, Icon, Loader, Pagination } from 'semantic-ui-react'
+import { Form, Icon, Loader, Pagination, Message } from 'semantic-ui-react'
 
 import { useQuery, useQueryClient } from 'react-query'
 import { useDebounce } from 'use-debounce'
@@ -52,13 +52,11 @@ const Search = () => {
 		setPage(1)
 	}, [debouncedSearch, sort, language])
 
-	// useEffect(() => {}, [debouncedSearch])
-
 	const handlePageChange = useCallback(
 		(_, data) => setPage(data.activePage),
 		[setPage]
 	)
-
+	console.log(language)
 	return (
 		<main className='search'>
 			<h3>Repositories</h3>
@@ -100,15 +98,21 @@ const Search = () => {
 					</Form.Field>
 				</Form.Group>
 			</Form>
-
 			{isLoading && <Loader active={isLoading} />}
 
 			{/* Error */}
-			{error && !items?.length && <p>{error.message}</p>}
+			{error && !items?.length && (
+				<Message
+					error
+					header='Oops, something is wrong'
+					list={[error.message]}
+				/>
+			)}
 
 			{/* Success */}
 			{items?.length ? (
 				<ul className='search__results'>
+					<h2>Results</h2>
 					{items?.map(({ id, full_name, stargazers_count }) => {
 						return (
 							<li className='search__results-item' key={id}>
@@ -119,8 +123,11 @@ const Search = () => {
 											to={`/repositories/${full_name}`}
 											className='list-item__link'
 										>
-											<p>Name: {full_name}</p>
-											<p>Stars: {stargazers_count}</p>
+											<p>{full_name}</p>
+											<p>
+												<Icon name='star' size='small' />
+												{stargazers_count}
+											</p>
 										</Link>
 									</div>
 								</div>

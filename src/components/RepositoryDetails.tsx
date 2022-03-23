@@ -34,7 +34,7 @@ const RepositoryDetail = () => {
 	const { avatar_url, login } = owner || {}
 
 	return (
-		<main className='repo'>
+		<main className='app'>
 			{error && <p>{error.message}</p>}
 			{data && (
 				<article className='ui padded segment'>

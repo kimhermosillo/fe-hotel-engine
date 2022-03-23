@@ -6,14 +6,21 @@
 }
 .search {
 	&__results {
+		background-color: white;
+		border: solid black 1px;
+		box-shadow: 10px 10px 5px gainsboro;
+		padding: 12px;
+		border-radius: 10px;
+		margin-top: 12px;
 		&-item {
 			margin-bottom: 1em;
 			margin-top: 12px;
-			background-color: ghostwhite;
+			background-color: white;
 			.content {
 				display: flex;
 				justify-content: space-between;
 				flex-wrap: wrap;
+				border-bottom: 1px solid gainsboro;
 
 				&__title-container {
 					display: flex;

@@ -4,7 +4,8 @@ This application allows you to search repositories using the Github repository s
 The results are sorted by best match and can be sorted by number of stars, and filtered by language.
 Clicking a result prompts you to the next page showing more details for that repository.
 
-##Available Scripts
+## Available Scripts
+
 In the project directory, you can run:
 
 `yarn start`
